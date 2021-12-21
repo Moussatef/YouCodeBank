@@ -36,6 +36,20 @@ public class Transaction {
         this.comments = comments;
     }
 
+    public Transaction(Long id, String transactionNumber, Instant date, String description, char sens, double amountLocal, CurrencyType currencyType, double currencyAmount, Account from, Account to, String comments) {
+        this.id = id;
+        this.transactionNumber = transactionNumber;
+        this.date = date;
+        this.description = description;
+        this.sens = sens;
+        this.amountLocal = amountLocal;
+        this.currencyType = currencyType;
+        this.currencyAmount = currencyAmount;
+        this.from = from;
+        this.to = to;
+        this.comments = comments;
+    }
+
     public Long getId() {
         return id;
     }
