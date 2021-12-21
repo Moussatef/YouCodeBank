@@ -3,16 +3,27 @@ package com.ycbank.app;
 import com.ycbank.dao.DAO;
 import com.ycbank.dao.DAOFactory;
 import com.ycbank.enumeration.AssuranceType;
+import com.ycbank.enumeration.BankType;
 import com.ycbank.enumeration.CountryType;
+import com.ycbank.enumeration.CurrencyType;
 import com.ycbank.interfaces.IDAO;
+import com.ycbank.model.Account;
+import com.ycbank.model.Person;
 import com.ycbank.model.Student;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.Objects;
 
 public class Main {
     public static void main(String[] args) {
         // by abstract ------------------------------------------------------------------|
 
+
+        System.out.println(new Date());
         DAO<Student> studentOp = DAOFactory.getStudentImpl();
 
         Student student1 = new Student(22123456L,"kamal","bhf","HH222222","bhfkamal@gmail.com",
@@ -30,6 +41,14 @@ public class Main {
 
         if(!Objects.isNull(student1))
             System.out.println("Bonjour "+student1.getFirstname()+" "+student1.getLastname());
+
+        Person person = student1;
+        DAO<Account> accountImpl = DAOFactory.getAccountImpl();
+
+
+        Account account = accountImpl.create(new Account(BankType.BMCE,"BM6476765876878",person, new Date(2021,22,10 , 15 , 22 ),300000, CurrencyType.MAD, new Date(2021,22,10 , 15 , 22 )));
+
+
 
         // --------------- CRUD OP -----------------|
         //student1.setFirstname("Ahmed");     //    |

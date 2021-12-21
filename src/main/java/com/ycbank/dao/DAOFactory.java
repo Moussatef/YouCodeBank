@@ -1,15 +1,9 @@
 package com.ycbank.dao;
 
-import com.ycbank.daoImpl.CoachImpl;
-import com.ycbank.daoImpl.EmployeeImpl;
-import com.ycbank.daoImpl.PersonImpl;
-import com.ycbank.daoImpl.StudentImpl;
+import com.ycbank.daoImpl.*;
 import com.ycbank.interfaceImpl.IPersonImpl;
 import com.ycbank.interfaceImpl.IStudentImpl;
-import com.ycbank.model.Coach;
-import com.ycbank.model.Employee;
-import com.ycbank.model.Person;
-import com.ycbank.model.Student;
+import com.ycbank.model.*;
 
 import com.ycbank.interfaces.IDAO;
 
@@ -26,6 +20,12 @@ public class DAOFactory {
     public static DAO<Coach> getCoachImpl(){
         return new CoachImpl();
     } //-----------|
+    public static DAO<Account> getAccountImpl(){
+        return new AccountImpl();
+    }
+
+
+
     // ------------------------------------------------------------------------------|
 
 

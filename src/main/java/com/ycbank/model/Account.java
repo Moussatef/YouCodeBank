@@ -17,11 +17,31 @@ public class Account {
     private Date lastUpdate;
 
     public Account(){
-        this.id = 1L + (long) (Math.random() * (100L - 1L));
+
     }
 
-    public Account(Long id,BankType bankType, String bankCode, Person owner, Date creationDate, double balance, CurrencyType currencyType, Date lastUpdate) {
+    public Account(Long id, BankType bankType, String bankCode, Person owner, Date creationDate, double balance, CurrencyType currencyType, Date lastUpdate) {
         this.id = id;
+        this.bankType = bankType;
+        this.bankCode = bankCode;
+        this.owner = owner;
+        this.creationDate = creationDate;
+        this.balance = balance;
+        this.currencyType = currencyType;
+        this.lastUpdate = lastUpdate;
+    }
+
+    public Account(Long id, BankType bankType, String bankCode, double balance, CurrencyType currencyType, Date lastUpdate) {
+        this.id = id;
+        this.bankType = bankType;
+        this.bankCode = bankCode;
+        this.balance = balance;
+        this.currencyType = currencyType;
+        this.lastUpdate = lastUpdate;
+    }
+
+    public Account(BankType bankType, String bankCode, Person owner, Date creationDate, double balance, CurrencyType currencyType, Date lastUpdate) {
+        this.id = 1L + (long) (Math.random() * (100L - 1L));
         this.bankType = bankType;
         this.bankCode = bankCode;
         this.owner = owner;
