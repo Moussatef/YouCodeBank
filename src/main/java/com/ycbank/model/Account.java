@@ -3,6 +3,7 @@ package com.ycbank.model;
 import com.ycbank.enumeration.BankType;
 import com.ycbank.enumeration.CurrencyType;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Account {
@@ -11,16 +12,16 @@ public class Account {
     private BankType bankType;
     private String bankCode;
     private Person owner;
-    private Date creationDate;
+    private LocalDateTime creationDate;
     private double balance;
     private CurrencyType currencyType;
-    private Date lastUpdate;
+    private LocalDateTime lastUpdate;
 
     public Account(){
 
     }
 
-    public Account(Long id, BankType bankType, String bankCode, Person owner, Date creationDate, double balance, CurrencyType currencyType, Date lastUpdate) {
+    public Account(Long id, BankType bankType, String bankCode, Person owner, LocalDateTime creationDate, double balance, CurrencyType currencyType, LocalDateTime lastUpdate) {
         this.id = id;
         this.bankType = bankType;
         this.bankCode = bankCode;
@@ -31,7 +32,7 @@ public class Account {
         this.lastUpdate = lastUpdate;
     }
 
-    public Account(Long id, BankType bankType, String bankCode, double balance, CurrencyType currencyType, Date lastUpdate) {
+    public Account(Long id, BankType bankType, String bankCode, double balance, CurrencyType currencyType, LocalDateTime lastUpdate) {
         this.id = id;
         this.bankType = bankType;
         this.bankCode = bankCode;
@@ -40,7 +41,7 @@ public class Account {
         this.lastUpdate = lastUpdate;
     }
 
-    public Account(BankType bankType, String bankCode, Person owner, Date creationDate, double balance, CurrencyType currencyType, Date lastUpdate) {
+    public Account(BankType bankType, String bankCode, Person owner, LocalDateTime creationDate, double balance, CurrencyType currencyType, LocalDateTime lastUpdate) {
         this.id = 1L + (long) (Math.random() * (100L - 1L));
         this.bankType = bankType;
         this.bankCode = bankCode;
@@ -79,11 +80,11 @@ public class Account {
         this.owner = owner;
     }
 
-    public Date getCreationDate() {
+    public LocalDateTime getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
     }
 
@@ -103,11 +104,11 @@ public class Account {
         this.currencyType = currencyType;
     }
 
-    public Date getLastUpdate() {
+    public LocalDateTime getLastUpdate() {
         return lastUpdate;
     }
 
-    public void setLastUpdate(Date lastUpdate) {
+    public void setLastUpdate(LocalDateTime lastUpLocalDateTime) {
         this.lastUpdate = lastUpdate;
     }
 

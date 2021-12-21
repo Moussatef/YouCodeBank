@@ -22,7 +22,6 @@ public class Main {
     public static void main(String[] args) {
         // by abstract ------------------------------------------------------------------|
 
-
         System.out.println(new Date());
         DAO<Student> studentOp = DAOFactory.getStudentImpl();
 
@@ -46,10 +45,14 @@ public class Main {
         DAO<Account> accountImpl = DAOFactory.getAccountImpl();
 
 
-        Account account = accountImpl.create(new Account(BankType.BMCE,"BM6476765876878",person, new Date(2021,22,10 , 15 , 22 ),300000, CurrencyType.MAD, new Date(2021,22,10 , 15 , 22 )));
+        Account account = accountImpl.create(new Account(BankType.BMCE,"BM6476765876878",person, LocalDateTime.now(),300000, CurrencyType.MAD, LocalDateTime.now()));
 
+        if(!Objects.isNull(account))
+            System.out.println(account.getId()+" / Bank name :"+ account.getBankType() +" / Balance :"+account.getBalance() + " " + account.getCurrencyType()+ "Last update is :" + account.getLastUpdate());
 
-
+         account = accountImpl.update(new Account(51L,BankType.BMCE,"MD6476765876878", 870000, CurrencyType.EUR, LocalDateTime.now()));
+        if(!Objects.isNull(account))
+            System.out.println(account.getId()+" / Bank name :"+ account.getBankType() +" / Balance :"+account.getBalance()+ " " + account.getCurrencyType()+ " Last update is :" + account.getLastUpdate());
         // --------------- CRUD OP -----------------|
         //student1.setFirstname("Ahmed");     //    |
         //student1 = studentOp.update(student1); // |

@@ -14,6 +14,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class AccountImpl extends DAO<Account> {
     @Override
@@ -24,8 +26,8 @@ public class AccountImpl extends DAO<Account> {
                     "SELECT * FROM person WHERE id = " + id);
             if(result.first())
                 account = new Account(BankType.fromString(result.getString("bankType")) ,result.getString("bankCode"), DAOFactory.getPersonImpl().find(result.getLong("owner_id")) ,
-                        result.getDate("creationDate"),result.getDouble("balance"), CurrencyType.fromString(result.getString("currencyType")),
-                         result.getDate("lastUpdate"));
+                        LocalDateTime.parse(result.getDate("creationDate").toString()) ,result.getDouble("balance"), CurrencyType.fromString(result.getString("currencyType")),
+                        LocalDateTime.parse(result.getDate("lastUpdate").toString()));
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -46,10 +48,10 @@ public class AccountImpl extends DAO<Account> {
             prepare.setString(2, account.getBankType().getValue());
             prepare.setString(3, account.getBankCode());
             prepare.setLong(4, account.getOwner().getId());
-            prepare.setDate(5,  new Date(account.getCreationDate().getYear(),account.getCreationDate().getMonth(),account.getCreationDate().getDay()));
+            prepare.setDate(5,  Date.valueOf(account.getCreationDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
             prepare.setDouble(6, account.getBalance());
             prepare.setString(7, account.getCurrencyType().getValue());
-            prepare.setDate(8, new Date(account.getLastUpdate().getYear(),account.getLastUpdate().getMonth(),account.getLastUpdate().getDay()));;
+            prepare.setDate(8, Date.valueOf(account.getLastUpdate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
 
             prepare.executeUpdate();
             return  account;
@@ -67,18 +69,14 @@ public class AccountImpl extends DAO<Account> {
         String query = "UPDATE account SET  bankType=?,  bankCode=?, balance=?,  currencyType=?,  lastUpdate=? WHERE id = ? ";
         try {
             PreparedStatement prepare = this.connect.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
-
-
             prepare.setString(1, account.getBankType().getValue());
             prepare.setString(2, account.getBankCode());
             prepare.setDouble(3, account.getBalance());
             prepare.setString(4, account.getCurrencyType().getValue());
-            prepare.setDate(5, new Date(account.getLastUpdate().getYear(),account.getLastUpdate().getMonth(),account.getLastUpdate().getDay()));;
+            prepare.setDate(5, Date.valueOf(account.getLastUpdate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
             prepare.setLong(6, account.getId());
             prepare.executeUpdate();
             return  account;
-
-
         }catch(SQLException e){
             e.printStackTrace();
 
@@ -87,7 +85,14 @@ public class AccountImpl extends DAO<Account> {
     }
 
     @Override
-    public void delete(Account obj) {
+    public void delete(Account account) {
+        try {
+            this.connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE).executeUpdate(
+                    "DELETE FROM account WHERE id = " + account.getId());
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 }
